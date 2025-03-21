@@ -55,18 +55,23 @@ public class BoardController {
 		} catch (Exception e) {
 			// TODO => 시스템 문제 발생 메세지 전달
 		}
-		return "redirect:/borad/list.do";
+		return "redirect:/board/list.do";
 	}
-			
-//		String title = "제목";
-//		String content = "게시글";
-//		String writer = "홍길동";
-//		
-//		model.addAttribute("t",title);
-//		model.addAttribute("c",content);
-//		model.addAttribute("w", writer);
-		
 	
+	@GetMapping(value = "/board/view.do")
+	public String openBoardDetail(@RequestParam(value= "idx", required = false) Long idx, Model model) {
+		if(idx == null) {
+			return "redirect:/board/list.do";
+		}
+		BoardDTO board = boardService.getBoardDetail(idx);
+		if(board == null|| "Y".equals(board.getDeleteYn())) {
+			// TODO => 없는 게시글이거나 , 이미 삭제된 게시글이라는 메시지 전달후 게시글 리스트로 리다이렉트
+			return "redirect:/borad/list.do";
+		}
+		model.addAttribute("board", board);
+		
+		return "board/view";
+	}
 	
 	
 	
