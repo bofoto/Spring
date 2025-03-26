@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.board.domain.BoardDTO;
 import com.board.mapper.BoardMapper;
+import com.board.paging.PaginationInfo;
+//import com.board.paging.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -52,15 +54,20 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList() {
+	public List<BoardDTO> getBoardList(BoardDTO params) {
 		// TODO Auto-generated method stub
 		
 		List<BoardDTO> boardList = Collections.emptyList();
 		
-		int boardTotalCount = boardMapper.selectBoardTotalCount();
+		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		paginationInfo.setTotalRecordCount(boardTotalCount);
+		
+		params.setPaginationInfo(paginationInfo);
+		
 		
 		if (boardTotalCount > 0 ) {
-			boardList = boardMapper.selectBoardList();
+			boardList = boardMapper.selectBoardList(params);
 		}
 		
 		return boardList;

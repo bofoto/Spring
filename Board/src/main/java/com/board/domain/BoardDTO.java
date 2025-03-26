@@ -3,7 +3,7 @@ package com.board.domain;
 import java.time.LocalDateTime;
 
 
-public class BoardDTO {
+public class BoardDTO extends commonDTO{
 
 	private Long idx;
 	private String title;

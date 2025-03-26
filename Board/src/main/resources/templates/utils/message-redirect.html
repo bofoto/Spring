@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="board/fragments/header :: main-head"></head>
 <body>
-    <form th:if="${not #maps.isEmpty(params)}" name="dataForm" th:action="${redirectUrl}" th:method="${method}" style="display: none;">
+    <form th:if="${not #maps.isEmpty(params)}" name="dataForm" th:action="${redirectUri}" th:method="${method}" style="display: none;">
         <input th:each="key, status : ${params.keySet()}" type="hidden" th:name="${key}" th:value="${params.get(key)}" />
     </form>
 
@@ -21,8 +21,8 @@
             if (isEmpty(params) == false) {
                 document.dataForm.submit();
             } else {
-                var redirectUrl = /*[[ ${redirectUrl} ]]*/ null;
-                location.href = redirectUrl;
+                var redirectUri = /*[[ ${redirectUri} ]]*/ null;
+                location.href = redirectUri;
             }
         }
         /* ]]> */
