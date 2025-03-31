@@ -43,7 +43,8 @@ public class PaginationInfo {
 			/* 페이지 리스트의 마지막 페이지 번호 (마지막 페이지가 전체 페이지 수보다 크면 마지막 페이지에 전체 페이지 수를 저장)*/
 			lastPage = firstPage + criteria.getPageSize()-1;
 			if (lastPage > totalPageCount) {
-				lastPage = totalRecordCount;
+				lastPage = (int)Math.ceil((double)totalRecordCount/10);
+				
 			}
 			
 			/*SQL의 조걸절에 사용되는 첫 RNUM*/
@@ -55,8 +56,10 @@ public class PaginationInfo {
 			/*이전 페이지 존재 여부*/
 			hasPreviousPage = firstPage != 1;
 			
+			/*다음 페이지 존재 여부*/
 			hasNextPage = (lastPage *criteria.getRecordsPerPage())<totalRecordCount; 
-			
+			System.out.println(lastPage *criteria.getRecordsPerPage());
+			System.out.println(lastRecordIndex+", "+lastPage+", "+totalRecordCount+", "+criteria.getRecordsPerPage());
 		}
 		public Criteria getCriteria() {
 			return criteria;

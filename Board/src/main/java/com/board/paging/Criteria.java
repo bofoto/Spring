@@ -17,7 +17,7 @@ public class Criteria {
 	}
 	
 	public int getStartPage() {
-		return (currentPageNo -1 )* recordsPerPage;
+		return (currentPageNo -1 ) * recordsPerPage;
 	}
 
 	public int getCurrentPageNo() {
@@ -68,7 +68,7 @@ public class Criteria {
 	
 	public String makeQueryString(int pageNo) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.queryParam("currentPageno", pageNo)
+				.queryParam("currentPageNo", pageNo)
 				.queryParam("recordsPerPage", recordsPerPage)
 				.queryParam("pageSize",pageSize)
 				.queryParam("searchType", searchType)

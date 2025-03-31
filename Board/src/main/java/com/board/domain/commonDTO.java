@@ -12,6 +12,7 @@ public class commonDTO extends Criteria{
 	private LocalDateTime insertTime;
 	private LocalDateTime updateTime;
 	private LocalDateTime deleteTime;
+	
 	public PaginationInfo getPaginationInfo() {
 		return paginationInfo;
 	}

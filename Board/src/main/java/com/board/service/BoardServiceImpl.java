@@ -60,6 +60,7 @@ public class BoardServiceImpl implements BoardService{
 		List<BoardDTO> boardList = Collections.emptyList();
 		
 		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
+		
 		PaginationInfo paginationInfo = new PaginationInfo(params);
 		paginationInfo.setTotalRecordCount(boardTotalCount);
 		
