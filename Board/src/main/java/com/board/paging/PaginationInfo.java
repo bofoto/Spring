@@ -58,8 +58,7 @@ public class PaginationInfo {
 			
 			/*다음 페이지 존재 여부*/
 			hasNextPage = (lastPage *criteria.getRecordsPerPage())<totalRecordCount; 
-			System.out.println(lastPage *criteria.getRecordsPerPage());
-			System.out.println(lastRecordIndex+", "+lastPage+", "+totalRecordCount+", "+criteria.getRecordsPerPage());
+			
 		}
 		public Criteria getCriteria() {
 			return criteria;
