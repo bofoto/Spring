@@ -50,7 +50,7 @@
 		<div class="box-content">
 			<div class="card-content">
 				<div class="clearfix">
-					<h4 class="box-title pull-left">Conmment</h4>
+					<h4 class="box-title pull-left">Comment</h4>
 				</div>
 				
 				<form class="form-hotizontal form-view">
@@ -58,20 +58,7 @@
 						<input type="email" class="form-control"placeholder="">
 						<div class ="input-group-btn"><button type ="button" class="btn waves-effect waves-light"><i class ="fa fa-commenting" aria-hidden="true"></i></button></div>
 					</div>
-					<ul class="notice-list">
-						<li>
-							<span class="name">Korea POLYTECHNICS</span>
-							<span class="desc">There are new setting available</span>
-							<span class="time">2022.10.06</span>
-							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
-						</li>
-						<il>
-							<span class="name">Korea POLYTECHNICS</span>
-							<span class="desc">There are new setting available</span>
-							<span class="time">2023.10.06</span>
-							<button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
-						</il>
-					</ul>
+					<ul class="notice-list"></ul>
 				</form>
 			</div>
 		</div>
@@ -98,6 +85,29 @@
 					document.dataForm.submit();
 				}
 			}
+			
+			$(function printCommentList(){
+				var uri = /*[[ @{/comments/}+${board.idx}]]*/ null;
+				$.get(uri, function(response){
+					if(isEmpty(response) == false){
+						var commentsHtml="";
+						$(response).each(function(idx, comment){
+							commentsHtml +=`
+								<li>
+									<span class="name">${comment.writer}</span>
+									<span class="desc">${comment.content}</span>
+									<button type="button" onclick="deleteComment(${comment.idx})" class="btn btn-xs btn-circle>"><i class="fa fa-close" aria-hidden="true"></i></button>
+								</li>
+							
+							`;
+						});
+						
+						$(".notice-list").html(commentsHtml);
+					}
+				},"json");
+			});
+			
+			
 			/*]]>*/
 		</script>
 		
