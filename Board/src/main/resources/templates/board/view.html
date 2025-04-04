@@ -119,7 +119,7 @@
 				var content = document.getElementById("content")
 				
 				if(isEmpty(content.value)== true){
-					content.setAttribute("placeholder","댓글을 읿력해 주세요.");
+					content.setAttribute("placeholder","댓글을 입력해 주세요.");
 					content.focus();
 					return false;
 				}
@@ -150,8 +150,38 @@
 			
 			}
 			
-			
-			
+			function deleteComment(idx){
+	
+							
+				if(!confirm('댓글을 삭제하시겠습니까?')){
+					return false;
+				}
+						
+				var uri = /*[[@{/comments/}]]*/ null;
+					uri += idx;
+				var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override":"DELETE"};
+							
+				$.ajax({
+						url: uri,
+						type: "DELETE",
+						headers: headers,
+						dataType: "json",
+						success: function(response) {
+							if (response.result == false){
+								alert("댓글 삭제 실패");
+											return false;
+								}
+										
+								printCommentList()
+								
+								},
+								error: function(xhr, status, error){
+									alert("오류가 발생하였습니다.");
+									return false;
+								}
+							})	
+						
+						}
 			/*]]>*/
 		</script>
 		
