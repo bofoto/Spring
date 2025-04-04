@@ -54,9 +54,13 @@
 				</div>
 				
 				<form class="form-hotizontal form-view">
-					<div class="input-group margin-botton-20">
-						<input type="email" class="form-control"placeholder="">
-						<div class ="input-group-btn"><button type ="button" class="btn waves-effect waves-light"><i class ="fa fa-commenting" aria-hidden="true"></i></button></div>
+					<div class="input-group margin-bottom-20">
+						<input type="text" id="content" class="form-control">
+						<div class ="input-group-btn">
+							<button type ="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.idx} ]])">
+								<i class ="fa fa-commenting" aria-hidden="true"></i>
+							</button>
+						</div>
 					</div>
 					<ul class="notice-list"></ul>
 				</form>
@@ -86,7 +90,8 @@
 				}
 			}
 			
-			$(function printCommentList(){
+			$(document).ready(printCommentList());
+			function printCommentList(){
 				var uri = /*[[ @{/comments/}+${board.idx}]]*/ null;
 				$.get(uri, function(response){
 					if(isEmpty(response) == false){
@@ -105,7 +110,46 @@
 						$(".notice-list").html(commentsHtml);
 					}
 				},"json");
-			});
+				
+				
+			};
+			
+			
+			function insertComment(boardIdx){
+				var content = document.getElementById("content")
+				
+				if(isEmpty(content.value)== true){
+					content.setAttribute("placeholder","댓글을 읿력해 주세요.");
+					content.focus();
+					return false;
+				}
+				
+				var uri = /*[[@{/comments}]]*/ null;
+				var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override":"POST"};
+				var params = {"boardIdx": boardIdx, "content": content.value, "writer": "관리자"};
+				$.ajax({
+						url: uri,
+						type: "POST",
+						headers: headers,
+						dataType: "json",
+						data: JSON.stringify(params),
+						success: function(response) {
+							if (response.result == false){
+								alert("댓글 등록에 실패 하였습니디.");
+								return false;
+							}
+							
+							printCommentList()
+							content.value = "";
+						},
+						error: function(xhr, status, error){
+							alert("오류가 발생하였습니다.");
+							return false;
+						}
+				})	
+			
+			}
+			
 			
 			
 			/*]]>*/
